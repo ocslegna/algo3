@@ -1,0 +1,15 @@
+# Se ignora lo de la carpeta build
+build/*
+
+# Se ignora lo de la carpeta .ipynb_checkpoints
+notebook/.ipynb_checkpoints/*
+
+# Pongo un .gitkeep en build para que la carpeta este en el repo, asi evitamos los problemas de tener que crear la carpeta manualmente
+!build/.gitkeep
+
+# Ignoro archivos de compilacion (por si quedan por ahi, aunque deberian estar en build)
+*.h.gch
+*.o
+*.pyc
+*.in
+*.out
