@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-std=c++11
+CFLAGS=-std=c++11 -D _GLBCXX_DEBUG -g -Wall -Wextra
 BINARIES=main
 DEPENDENCIES=build/Ej1.o build/Ej2.o build/Ej3.o
 def = defines.o
