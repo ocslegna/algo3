@@ -32,9 +32,8 @@ void parsear();
 /* Experiment */
 void print_experiment_values (Experiment &experiment, unsigned int &global_value);
 
+
 /* Solve */
 void run(unsigned int &global_count, Experiment &init_experiment, Experiment &experiment);
-unsigned int solve(unsigned int &global_count, Experiment &experiment);
-
 
 #endif //ALGO3_DEFINES_H

@@ -72,7 +72,6 @@ void stop_clock (high_resolution_clock::time_point &T_START, high_resolution_clo
 /* Validation */
 void validate_argc (const int &argc, char *argv[]) {
     // Ejercicios a correr y otros argumentos.
-
     if (argc != 3) {
         if(argc != 1) {
             cout << "You need to supply two arguments EXERCISE and ITERATIONS to this program." << endl;
@@ -81,12 +80,35 @@ void validate_argc (const int &argc, char *argv[]) {
     } else {
         EXERCISE = static_cast<unsigned int>(strtol(argv[1], nullptr, 10));
         ITERATIONS = static_cast<unsigned int>(strtol(argv[2], nullptr, 10));
+
+        if (EXERCISE >= 4 || EXERCISE <= 0) {
+            cout << "Invalid exercise " << EXERCISE << ", please select 1, 2 or 3." << endl;
+            exit (EXIT_FAILURE);
+        }
+
+        // TODO: Agregar acá validacion de argumentos siguientes(de ser necesario) por ejercicio.
     }
 
 }
 
 void parse() {
     // Parsear aca o en parser.cpp ej1 o ej2 o ej3.
+    // TODO: Hacer parsers separados e invocar acá. (agregar list/vector de argumentos -corresponden a ejercicio-).
+
+    switch ( EXERCISE ){
+        case 1:
+            // Parse Ej1
+            break;
+        case 2:
+            // Parse Ej2
+            break;
+        case 3:
+            // Parse Ej3
+            break;
+        default:
+            cout << "Invalid exercise " << EXERCISE << ", please select 1, 2 or 3." << endl;
+            exit(EXIT_FAILURE);
+    }
 }
 
 /* General and container's actions */
@@ -105,16 +127,28 @@ void print_experiment_values (Experiment &experiment, unsigned int &global_value
 /* Solve */
 void run(unsigned int &global_count, Experiment &init_experiment, Experiment &experiment) {
     // Corre ej1 o ej2 o ej3 con sus respectivos parametros a definir.
+    // TODO: Utilizar lista de parámetros de ejercicio.
 
     for (unsigned int i = 0; i < ITERATIONS; ++i) {
-        experiment = init_experiment;
+        // TODO: colocar estado inicial del ejercicio a resolver, ej: state = init_state; hacerlo en el parse.
         global_count = 0;
-        solve(global_count, experiment);
+        experiment = init_experiment;
+        switch ( EXERCISE ){
+            // TODO: En cada case invocar funcion principal del problema a resolver con sus parámetros.
+            case 1:
+                // solve Ej1
+                break;
+            case 2:
+                // solve Ej2
+                break;
+            case 3:
+                // solve Ej3
+                break;
+            default:
+                cout << "Invalid exercise " << EXERCISE << ", please select 1, 2 or 3." << endl;
+                exit(EXIT_FAILURE);
+        }
     }
-}
-
-unsigned int solve(unsigned int &global_count, Experiment &experiment) {
-    return 1;
 }
 
 
@@ -124,8 +158,7 @@ int main(int argc, char *argv[]) {
     srand (static_cast<unsigned int>(time (nullptr)));
     high_resolution_clock::time_point T_START, T_END;
 
-    unsigned int GLOBAL_VALUE = 0, COUNT_AFFIRMATIONS = 0;
-    vector<pair<unsigned int, int> > AFFIRMATIONS;
+    unsigned int GLOBAL_VALUE = 0;
 
     parse ();
 
