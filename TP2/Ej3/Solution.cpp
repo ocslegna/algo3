@@ -1,10 +1,10 @@
 #include "Solution.h"
 
 namespace Ej3 {
-
     Solution::Solution(vector<Route> routes) {
         this -> routes = routes;
-        int total_cost = 0;
+        this -> total_cost = 0;
+
         for(int i = 0; i < routes.size(); i++) {
             total_cost += routes[i].weight;
         }
@@ -14,7 +14,7 @@ namespace Ej3 {
 
 
     std::ostream & operator<<(std::ostream & Str, Solution const & sol) {
-        Str << sol.total_cost << " " << sol.routes.size();
+        Str << sol.total_cost << " " << sol.routes.size() << endl;
 
         return Str;
     }

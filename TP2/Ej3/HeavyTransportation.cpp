@@ -7,12 +7,12 @@ HeavyTransportation::HeavyTransportation(AdjacencyMatrix adjacency_matrix) {
 }
 
 Solution HeavyTransportation::solve() {
-    vector<Route> routes(1);
+    vector<Route> routes;
     Route r;
     r.weight = 5;
     r.origin = 1;
     r.target = 2;
-    routes[0] = r;
+    routes.push_back(r);
     return Solution(routes);
 }
 
