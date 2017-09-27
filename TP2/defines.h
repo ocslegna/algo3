@@ -36,4 +36,11 @@ void print_experiment_values (Experiment &experiment, unsigned int &global_value
 /* Solve */
 void run(unsigned int &global_count, Experiment &init_experiment, Experiment &experiment);
 
+typedef vector <vector <int> > AdjacencyMatrix;
+typedef struct {
+    int origin;
+    int target;
+    int weight;
+} Route;
+
 #endif //ALGO3_DEFINES_H

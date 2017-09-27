@@ -8,7 +8,9 @@
 
 #include "Ej1/Ej1.h"
 #include "Ej2/Ej2.h"
-#include "Ej3/Ej3.h"
+#include "Ej3/HeavyTransportation.h"
+#include "Ej3/Parser.h"
+#include "Ej3/Solution.h"
 #include "defines.h"
 
 #define EXPERIMENTATION
@@ -19,6 +21,8 @@ using namespace std::chrono;
 unsigned int ITERATIONS = 1, EXERCISE = 0;
 long T_DURATION;
 
+
+vector<AdjacencyMatrix> ej3_problems;
 
 /* Structures */
 struct Experiment { // Ejemplo estructura a experimentar para luego redireccionar por cerr.
@@ -103,7 +107,8 @@ void parse() {
             // Parse Ej2
             break;
         case 3:
-            // Parse Ej3
+            Ej3::Parser parser;
+            ej3_problems = parser.parse(std::cin);
             break;
         default:
             cout << "Invalid exercise " << EXERCISE << ", please select 1, 2 or 3." << endl;
@@ -142,7 +147,13 @@ void run(unsigned int &global_count, Experiment &init_experiment, Experiment &ex
                 // solve Ej2
                 break;
             case 3:
-                // solve Ej3
+                for (int i = 0; i < ej3_problems.size(); i++) {
+                    Ej3::HeavyTransportation heavy_transportation(ej3_problems[i]);
+                    Ej3::Solution solution;
+                    solution = heavy_transportation.solve();
+
+                    cout << solution;
+                }
                 break;
             default:
                 cout << "Invalid exercise " << EXERCISE << ", please select 1, 2 or 3." << endl;
