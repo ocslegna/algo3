@@ -1,5 +1,4 @@
 #include "Solution.h"
-#include "../defines.h"
 
 namespace Ej3 {
     Solution::Solution(vector<Route> routes) {

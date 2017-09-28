@@ -8,6 +8,7 @@ namespace Ej3 {
     class HeavyTransportation {
     private:
         AdjacencyMatrix adjacency_matrix;
+        int n;
     public:
         HeavyTransportation(AdjacencyMatrix adjacency_matrix);
         Solution solve();
