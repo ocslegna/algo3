@@ -4,7 +4,7 @@ using namespace Ej3;
 
 HeavyTransportation::HeavyTransportation(AdjacencyMatrix adjacency_matrix) {
     this -> adjacency_matrix = adjacency_matrix;
-    this -> n = adjacency_matrix.size();
+    this -> n = static_cast<unsigned int>(adjacency_matrix.size());
 }
 
 Solution HeavyTransportation::solve() {
@@ -18,8 +18,8 @@ Solution HeavyTransportation::solve() {
         pertenece[i] = i;
     }
 
-    int nodoA;
-    int nodoB;
+    int nodoA = 0;
+    int nodoB = 0;
     int arcos = 1;
     while(arcos < n){
         // Encontrar  el arco mínimo que no forma ciclo y guardar los nodos y la distancia.
@@ -37,7 +37,7 @@ Solution HeavyTransportation::solve() {
             arbol[nodoA][nodoB] = min;
             arbol[nodoB][nodoA] = min;
 
-            Route r;
+            Route r{};
             r.origin = nodoA + 1;
             r.target = nodoB + 1;
             r.weight = min;

@@ -8,9 +8,9 @@ namespace Ej3 {
     class HeavyTransportation {
     private:
         AdjacencyMatrix adjacency_matrix;
-        int n;
+        unsigned int n;
     public:
-        HeavyTransportation(AdjacencyMatrix adjacency_matrix);
+        explicit HeavyTransportation(AdjacencyMatrix adjacency_matrix);
         Solution solve();
     };
 }

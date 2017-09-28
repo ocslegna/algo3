@@ -26,7 +26,6 @@ void stop_clock(high_resolution_clock::time_point &T_START, high_resolution_cloc
 /* Validation */
 void validate_argc(const int &argc, char *argv[]);
 void parse(); // Sino, implementar parser.cpp con el parseo de todos los ejercicios.
-void parsear();
 
 
 /* Experiment */

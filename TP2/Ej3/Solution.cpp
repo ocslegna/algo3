@@ -5,19 +5,19 @@ namespace Ej3 {
         this -> routes = routes;
         this -> total_cost = 0;
 
-        for(int i = 0; i < routes.size(); i++) {
-            total_cost += routes[i].weight;
+        for (auto &route : routes) {
+            total_cost += route.weight;
         }
     }
 
-    Solution::Solution() {}
+    Solution::Solution() = default;
 
 
     std::ostream & operator<<(std::ostream & Str, Solution const & sol) {
         Str << sol.total_cost << " " << sol.routes.size();
 
-        for (int i = 0; i < sol.routes.size(); i++) {
-            Str << " " << sol.routes[i].origin << " " << sol.routes[i].target;
+        for (auto route : sol.routes) {
+            Str << " " << route.origin << " " << route.target;
         }
 
         Str << endl;

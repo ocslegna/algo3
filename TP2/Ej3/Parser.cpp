@@ -3,7 +3,7 @@
 using namespace Ej3;
 
 vector<AdjacencyMatrix> Parser::parse(std::istream &stream) {
-    int factories;
+    unsigned int factories;
     vector<AdjacencyMatrix> problems;
 
     stream >> factories;
@@ -16,8 +16,8 @@ vector<AdjacencyMatrix> Parser::parse(std::istream &stream) {
     return problems;
 }
 
-AdjacencyMatrix Parser::parse_instance(int factories, std::istream &stream) {
-    int clients, routes;
+AdjacencyMatrix Parser::parse_instance(unsigned int factories, std::istream &stream) {
+    unsigned int clients, routes;
     stream >> clients >> routes;
 
     AdjacencyMatrix problem(factories + clients, vector<int>(factories + clients, 0));

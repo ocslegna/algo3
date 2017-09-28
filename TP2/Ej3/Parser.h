@@ -11,7 +11,7 @@ namespace Ej3 {
     class Parser {
     public:
         vector<AdjacencyMatrix> parse(std::istream &stream);
-        AdjacencyMatrix parse_instance(int factories, std::istream &stream);
+        AdjacencyMatrix parse_instance(unsigned int factories, std::istream &stream);
     };
 }
 

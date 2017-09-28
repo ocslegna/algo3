@@ -122,9 +122,10 @@ void parse() {
 /* Experiment */
 void print_experiment_values (Experiment &experiment, unsigned int &global_value) {
 #ifdef EXPERIMENTATION
-    cerr << "field1 " << global_value << endl;
-    cerr << "field2 " << 2 << endl;
+    cerr << "field1 " << experiment.field1 << endl;
+    cerr << "field2 " << global_value << endl;
     cerr << "field3 " << 3 << endl;
+    cerr << "field4 " << 4 << endl;
 #endif
 }
 
@@ -147,8 +148,8 @@ void run(unsigned int &global_count, Experiment &init_experiment, Experiment &ex
                 // solve Ej2
                 break;
             case 3:
-                for (int i = 0; i < ej3_problems.size(); i++) {
-                    Ej3::HeavyTransportation heavy_transportation(ej3_problems[i]);
+                for (const auto &ej3_problem : ej3_problems) {
+                    Ej3::HeavyTransportation heavy_transportation(ej3_problem);
                     Ej3::Solution solution;
                     solution = heavy_transportation.solve();
 

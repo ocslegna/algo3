@@ -1,14 +1,14 @@
 #include "Ej2.h"
 
 vector<int> Prim(MatrizAdyacencias &M){
-	int n = M.size();
+	unsigned long n = M.size();
 
 	vector<int> distancia(n, -1);
 	vector<int> padre(n, -1);
 	vector<bool> visitado(n, false);
 
 	int v = 1;
-	for (int w = 2; w < n; w++){
+	for (unsigned int w = 2; w < n; w++){
 		if( M[v][w] > 0 ){
 			distancia[w] = M[v][w];
 			padre[w] = v;
@@ -18,12 +18,12 @@ vector<int> Prim(MatrizAdyacencias &M){
 	distancia[v] = 0;
 	visitado[v] = true;
 
-	int cant_visitados = 1;
-	int min = 1;
+	unsigned int cant_visitados = 1;
+	int min;
 	while (cant_visitados < n){
 
 		min = 2;
-		for(int i = 2; i < n; i++){
+		for(unsigned int i = 2; i < n; i++){
 			// Busco el de menor distancia
 			if(not visitado[i] and distancia[i] > 0 and distancia[i] < distancia[min] ){
 				min = i;
@@ -36,7 +36,7 @@ vector<int> Prim(MatrizAdyacencias &M){
 
 		// Actualizo distancias.
 		if(cant_visitados != n-1){
-			for(int w = 1; w < n; w++){
+			for(unsigned int w = 1; w < n; w++){
 				if( M[min][w] > 0 ){
 					if( distancia[w] > M[min][w] ){
 						distancia[w] = M[min][w];
@@ -52,7 +52,7 @@ vector<int> Prim(MatrizAdyacencias &M){
 // Devuelve el costo total
 int ConstruirSolucion(MatrizAdyacencias &M, vector<int> &padre, vector<Arista> &aristas, int raiz){
 
-	int n = padre.size();
+	auto n = static_cast<int>(padre.size());
 	
 	int costo = 0;
 	
@@ -115,7 +115,7 @@ int NodoMasLejanoBFS(vector< list<int> > &graph, int inicial){
 	distancia[inicial] = 0;
 	padre[inicial] = 0;
 
-	int u; 
+	int u = 0;
 
 	queue<int> Cola;
 	Cola.push(inicial);
