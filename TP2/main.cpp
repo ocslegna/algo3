@@ -22,7 +22,7 @@ unsigned int ITERATIONS = 1, EXERCISE = 0;
 long T_DURATION;
 
 
-vector<AdjacencyMatrix> ej3_problems;
+vector<EJ3Problem> ej3_problems;
 
 /* Structures */
 struct Experiment { // Ejemplo estructura a experimentar para luego redireccionar por cerr.

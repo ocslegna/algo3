@@ -2,19 +2,39 @@
 
 using namespace Ej3;
 
-HeavyTransportation::HeavyTransportation(AdjacencyMatrix adjacency_matrix) {
-    this -> adjacency_matrix = adjacency_matrix;
-    this -> n = static_cast<unsigned int>(adjacency_matrix.size());
+HeavyTransportation::HeavyTransportation(EJ3Problem problem) {
+
+    this -> adjacency_matrix = problem.adjacency_matrix;
+    this -> factories = problem.factories;
+    this -> clients = problem.clients;
+    this -> n = clients + factories;
+}
+
+void HeavyTransportation::extend_adjacency_matrix() {
+    vector<int> new_row(n, -1);
+
+    for (int i = 0; i < n; i++) {
+        if (i < factories) {
+            this -> adjacency_matrix[i].push_back(
+                0); // Esto es conectar la fábrica con un eje de peso 0 a un nuevo vértice
+            new_row[i] = 0;
+        } else {
+            this -> adjacency_matrix[i].push_back(-1);
+        }
+    }
+
+    this -> adjacency_matrix.push_back(new_row);
+    this -> n ++;
 }
 
 Solution HeavyTransportation::solve() {
+    extend_adjacency_matrix();
+
     vector< vector<int> > adyacencia = this->adjacency_matrix;
-    vector< vector<int> > arbol(n);
     vector<Route> solution_routes;
     vector<int> pertenece(n); // indica a que árbol pertenece el nodo
 
     for(int i = 0; i < n; i++){
-        arbol[i] = vector<int> (n, 0);
         pertenece[i] = i;
     }
 
@@ -26,7 +46,7 @@ Solution HeavyTransportation::solve() {
         int min = -1;
         for(int i = 0; i < n; i++)
             for(int j = 0; j < n; j++)
-                if((min > adyacencia[i][j] || min == -1) && adyacencia[i][j]!=0 && pertenece[i] != pertenece[j]){
+                if((min > adyacencia[i][j] || min == -1) && adyacencia[i][j]!=-1 && pertenece[i] != pertenece[j]){
                     min = adyacencia[i][j];
                     nodoA = i;
                     nodoB = j;
@@ -34,14 +54,15 @@ Solution HeavyTransportation::solve() {
 
         // Si los nodos no pertenecen al mismo árbol agrego el arco al árbol mínimo.
         if(pertenece[nodoA] != pertenece[nodoB]){
-            arbol[nodoA][nodoB] = min;
-            arbol[nodoB][nodoA] = min;
 
-            Route r{};
-            r.origin = nodoA + 1;
-            r.target = nodoB + 1;
-            r.weight = min;
-            solution_routes.push_back(r);
+
+            if (min != 0) {
+                Route r{};
+                r.origin = nodoA + 1;
+                r.target = nodoB + 1;
+                r.weight = min;
+                solution_routes.push_back(r);
+            }
 
             // Todos los nodos del árbol del nodoB ahora pertenecen al árbol del nodoA.
             int temp = pertenece[nodoB];
@@ -53,6 +74,8 @@ Solution HeavyTransportation::solve() {
             arcos++;
         }
     }
+
+
     return Solution(solution_routes);
 }
 

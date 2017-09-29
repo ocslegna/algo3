@@ -41,5 +41,10 @@ typedef struct {
     int target;
     int weight;
 } Route;
+typedef struct {
+    AdjacencyMatrix adjacency_matrix;
+    int factories;
+    int clients;
+} EJ3Problem;
 
 #endif //ALGO3_DEFINES_H
