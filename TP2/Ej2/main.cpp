@@ -29,7 +29,6 @@ int main(int argc, char **argv) {
 		}
 
 		// 2.1
-
 		vector<int> padres = Prim(M);
 		vector<Arista> aristas;
 		// 'costoTotal' = costo mínimo utilizando los enlaces en 'aristas'
@@ -43,7 +42,7 @@ int main(int argc, char **argv) {
   			incidentList[it->second].push_back(it->first);
 		}
 
-
+		
 		// 2.2
 		int u =	NodoMasLejanoBFS(incidentList, 1); 
 		int v = NodoMasLejanoBFS(incidentList, u);
@@ -56,13 +55,13 @@ int main(int argc, char **argv) {
 		int master = *it;
 		
 		// Imprimo solución.
-		cout << costoTotal << " " << master << " " << camino.size() << " ";
+		cout << costoTotal << " " << master << " " << aristas.size() << " ";
 		for(auto it = camino.begin(); it != camino.end(); it++){
-			cout << *it << " ";
 			auto next = it;
 			next++;
+			if(next == camino.end()) break;
+			cout << *it << " ";
 			if(next != camino.end()) cout << *next << " "; 
-			
 		}
 		cout << endl; 
 

@@ -3,7 +3,7 @@
 vector<int> Prim(MatrizAdyacencias &M){
 	unsigned long n = M.size();
 
-	vector<int> distancia(n, -1);
+	vector<int> distancia(n, INT_MAX);
 	vector<int> padre(n, -1);
 	vector<bool> visitado(n, false);
 
@@ -16,13 +16,19 @@ vector<int> Prim(MatrizAdyacencias &M){
 	}
 
 	distancia[v] = 0;
+	padre[v] = 0;
 	visitado[v] = true;
 
 	unsigned int cant_visitados = 1;
 	int min;
 	while (cant_visitados < n){
 
-		min = 2;
+		for(unsigned int i = 2; i < n; i++){
+			if(not visitado[i]){
+				min = i;
+				break;
+			}
+		}
 		for(unsigned int i = 2; i < n; i++){
 			// Busco el de menor distancia
 			if(not visitado[i] and distancia[i] > 0 and distancia[i] < distancia[min] ){
@@ -35,12 +41,14 @@ vector<int> Prim(MatrizAdyacencias &M){
 		cant_visitados++;
 
 		// Actualizo distancias.
-		if(cant_visitados != n-1){
+		if(cant_visitados < n-1){
 			for(unsigned int w = 1; w < n; w++){
-				if( M[min][w] > 0 ){
-					if( distancia[w] > M[min][w] ){
-						distancia[w] = M[min][w];
-						padre[w] = min;
+				if(not visitado[w]){
+					if( M[min][w] > 0 ){
+						if( distancia[w] > M[min][w] ){
+							distancia[w] = M[min][w];
+							padre[w] = min;
+						}
 					}
 				}
 			}
@@ -56,13 +64,13 @@ int ConstruirSolucion(MatrizAdyacencias &M, vector<int> &padre, vector<Arista> &
 	
 	int costo = 0;
 	
-	for(int i = 1; i < n; i++){
-		if(i != raiz and padre[i] == raiz){
-			Arista e = make_pair(raiz, i);
-			aristas.push_back(e);
-			costo += M[raiz][i];
-			raiz = i;
-		}
+	int w;
+	// Arranco desde 2 porque Prim arranca siempre desde 1 (no tiene padre).
+	for(int i = 2; i < n; i++){
+		w = padre[i];
+		Arista e = make_pair(w, i);
+		aristas.push_back(e);
+		costo += M[w][i];
 	}
 
 	return costo;
@@ -106,16 +114,16 @@ list<int> CaminoEntreDFS(vector< list<int> > &graph, int u, int v){
 
 int NodoMasLejanoBFS(vector< list<int> > &graph, int inicial){
 
-	vector<bool> visitado(graph.size()-1, false);
-	vector<int> distancia(graph.size()-1, -1);
-	vector<int> padre(graph.size()-1, -1);
+	vector<bool> visitado(graph.size(), false);
+	vector<int> distancia(graph.size(), -1);
+	vector<int> padre(graph.size(), -1);
 
 
 	visitado[inicial] = true;
 	distancia[inicial] = 0;
 	padre[inicial] = 0;
 
-	int u = 0;
+	int u;
 
 	queue<int> Cola;
 	Cola.push(inicial);
