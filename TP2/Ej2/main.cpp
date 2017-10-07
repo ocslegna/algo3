@@ -56,16 +56,11 @@ int main(int argc, char **argv) {
 		
 		// Imprimo solución.
 		cout << costoTotal << " " << master << " " << aristas.size() << " ";
-		for(auto it = camino.begin(); it != camino.end(); it++){
-			auto next = it;
-			next++;
-			if(next == camino.end()) break;
-			cout << *it << " ";
-			if(next != camino.end()) cout << *next << " "; 
+		for(unsigned int i = 0; i < aristas.size(); i++){
+			cout << aristas[i].first << " " << aristas[i].second << " ";
+			
 		}
 		cout << endl; 
-
-
 
 		cin >> n >> m;
 
