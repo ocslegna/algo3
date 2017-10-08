@@ -1,42 +1,36 @@
 #include "Parser.h"
 
-using namespace Ej3;
+using namespace Ej1;
 
+vector<EJ1Problem> Parser::parse(std::istream &stream) {
+    unsigned works;
+    vector<EJ1Problem> problems;
 
-vector<EJ3Problem> Parser::parse(std::istream &stream) {
-    unsigned factories;
-    vector<EJ3Problem> problems;
+    stream >> works;
 
-    stream >> factories;
-
-    while (factories != 0) {
-        problems.push_back(parse_instance(factories, stream));
-        stream >> factories;
+    while (works != 0) {
+        problems.push_back(parse_instance(works, stream));
+        stream >> works;
     }
 
     return problems;
 }
 
+EJ1Problem Parser::parse_instance(unsigned works, std::istream &stream) {
+    vector<vector<unsigned>> costMatrix(works);
 
-EJ3Problem Parser::parse_instance(unsigned factories, std::istream &stream) {
-    unsigned int clients, routes;
-    stream >> clients >> routes;
-
-    AdjacencyMatrix adjM(factories + clients, vector<int>(factories + clients, -1));
-
-
-    for (int i = 0; i < routes; i++) {
-        int origin, target, weight;
-
-        stream >> origin >> target >> weight;
-
-        adjM[origin - 1][target - 1] = weight;
-        adjM[target - 1][origin - 1] = weight;
+    for (unsigned i = 0; i < works; i++) {
+        vector<unsigned> j_vector;
+        for (unsigned j = 0; j <= i; j++) {
+            unsigned cost;
+            stream >> cost;
+            j_vector.push_back (cost);
+        }
+        costMatrix.push_back (j_vector);
     }
 
-    EJ3Problem problem;
-    problem.adjacency_matrix = adjM;
-    problem.clients = clients;
-    problem.factories = factories;
+    EJ1Problem problem;
+    problem.cost_matrix = costMatrix;
+    problem.works = works;
     return problem;
 }

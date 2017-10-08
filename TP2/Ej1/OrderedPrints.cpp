@@ -4,10 +4,10 @@ using namespace Ej1;
 
 OrderedPrints::OrderedPrints(EJ1Problem problem) {
 
-    this -> adjacency_matrix = problem.adjacency_matrix;
-    this -> factories = problem.factories;
-    this -> clients = problem.clients;
-    this -> n = clients + factories;
+    //this -> adjacency_matrix = problem.adjacency_matrix;
+    //this -> factories = problem.factories;
+    //this -> clients = problem.clients;
+    //this -> n = clients + factories;
 }
 
 void OrderedPrints::extend_adjacency_matrix() {

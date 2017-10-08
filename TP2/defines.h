@@ -36,6 +36,8 @@ void print_experiment_values (Experiment &experiment, unsigned int &global_value
 void run(unsigned int &global_count, Experiment &init_experiment, Experiment &experiment);
 
 typedef vector <vector <int> > AdjacencyMatrix;
+typedef vector <vector <unsigned> > costMatrix;
+
 typedef struct {
     int origin;
     int target;
@@ -46,5 +48,10 @@ typedef struct {
     int factories;
     int clients;
 } EJ3Problem;
+
+typedef struct {
+    costMatrix cost_matrix;
+    unsigned works;
+} EJ1Problem;
 
 #endif //ALGO3_DEFINES_H

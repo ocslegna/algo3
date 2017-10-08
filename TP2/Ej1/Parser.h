@@ -11,7 +11,7 @@ namespace Ej1 {
     class Parser {
     public:
         vector<EJ1Problem> parse(std::istream &stream);
-        EJ1Problem parse_instance(unsigned int factories, std::istream &stream);
+        EJ1Problem parse_instance(unsigned works, std::istream &stream);
     };
 }
 
