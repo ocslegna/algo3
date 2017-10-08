@@ -12,6 +12,7 @@
 #include "Ej3/Parser.h"
 #include "Ej3/Solution.h"
 #include "defines.h"
+#include "Ej3/Experimentation.h"
 
 bool EXPERIMENTATION = false;
 
@@ -145,6 +146,8 @@ void run_experiment() {
         case 2:
             break;
         case 3:
+            Ej3::Experimentation experimentation;
+            experimentation.run();
             break;
         default:
             cout << "Invalid exercise " << EXERCISE << ", please select 1, 2 or 3." << endl;
