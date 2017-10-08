@@ -12,17 +12,15 @@
 #include "Ej3/Parser.h"
 #include "Ej3/Solution.h"
 #include "defines.h"
-#include "Ej3/Experimentation.h"
-#include <time.h>
 
-
-#define EXPERIMENTATION
+bool EXPERIMENTATION = false;
 
 using namespace std;
 using namespace std::chrono;
 
 unsigned int ITERATIONS = 1, EXERCISE = 0;
 long T_DURATION;
+string FIRST, SECOND;
 
 vector<EJ1Problem> ej1_problems;
 vector<EJ3Problem> ej3_problems;
@@ -78,48 +76,29 @@ void stop_clock (high_resolution_clock::time_point &T_START, high_resolution_clo
 
 /* Validation */
 void validate_argc (const int &argc, char *argv[]) {
-    // Ejercicios a correr y otros argumentos.
-
-    // ./tp1 e 1
-
     if (argc != 3) {
         if(argc != 1) {
             cout << "You need to supply two arguments EXERCISE and ITERATIONS to this program." << endl;
             exit (EXIT_FAILURE);
         }
     } else {
-        EXERCISE = static_cast<unsigned int>(strtol(argv[1], nullptr, 10));
-        ITERATIONS = static_cast<unsigned int>(strtol(argv[2], nullptr, 10));
+        /* Los argumentos deberán ser -> Experimentacion: "E NumeroEjercicio" ó "NumeroEjercicio CantidadIteraciones" */
+        FIRST = argv[1];
+        SECOND = argv[2];
+        if(FIRST == "e" || FIRST == "E"){
+            EXPERIMENTATION = true;
+            EXERCISE = static_cast<unsigned int>(strtol(argv[2], nullptr, 10));
+        } else {
+            EXERCISE = static_cast<unsigned int>(strtol(argv[1], nullptr, 10));
+            ITERATIONS = static_cast<unsigned int>(strtol(argv[2], nullptr, 10));
+        }
 
         if (EXERCISE >= 4 || EXERCISE <= 0) {
             cout << "Invalid exercise " << EXERCISE << ", please select 1, 2 or 3." << endl;
             exit (EXIT_FAILURE);
         }
-
-        // TODO: Agregar acá validacion de argumentos siguientes(de ser necesario) por ejercicio.
     }
 
-}
-
-void experiment() {
-    // Parsear aca o en parser.cpp ej1 o ej2 o ej3.
-    // TODO: Hacer parsers separados e invocar acá. (agregar list/vector de argumentos -corresponden a ejercicio-).
-
-    switch ( EXERCISE ){
-        case 1:
-            // Parse Ej1
-            break;
-        case 2:
-            // Parse Ej2
-            break;
-        case 3:
-            Ej3::Experimentation experimentation;
-            experimentation.run();
-            break;
-        default:
-            cout << "Invalid exercise " << EXERCISE << ", please select 1, 2 or 3." << endl;
-            exit(EXIT_FAILURE);
-    }
 }
 
 void parse() {
@@ -135,8 +114,8 @@ void parse() {
             // Parse Ej2
             break;
         case 3:
-//            Ej3::Parser ej3_parser;
-//            ej3_problems = ej3_parser.parse(std::cin);
+            Ej3::Parser ej3_parser;
+            ej3_problems = ej3_parser.parse(std::cin);
             break;
         default:
             cout << "Invalid exercise " << EXERCISE << ", please select 1, 2 or 3." << endl;
@@ -149,54 +128,59 @@ void parse() {
 
 /* Experiment */
 void print_experiment_values (Experiment &experiment, unsigned int &global_value) {
-#ifdef EXPERIMENTATION
-    cerr << "field1 " << experiment.field1 << endl;
-    cerr << "field2 " << global_value << endl;
-    cerr << "field3 " << 3 << endl;
-    cerr << "field4 " << 4 << endl;
-#endif
+    if(EXPERIMENTATION){
+        cerr << "field1 " << experiment.field1 << endl;
+        cerr << "field2 " << global_value << endl;
+        cerr << "field3 " << 3 << endl;
+        cerr << "field4 " << 4 << endl;
+    }
 }
 
 
 /* Solve */
-void run(unsigned int &global_count, Experiment &init_experiment, Experiment &experiment) {
-    // Corre ej1 o ej2 o ej3 con sus respectivos parametros a definir.
-    // TODO: Utilizar lista de parámetros de ejercicio.
-
-    //for (unsigned int i = 0; i < ITERATIONS; ++i) {
-        // TODO: colocar estado inicial del ejercicio a resolver, ej: state = init_state; hacerlo en el parse.
-        global_count = 0;
-        experiment = init_experiment;
-        switch ( EXERCISE ){
-            // TODO: En cada case invocar funcion principal del problema a resolver con sus parámetros.
-            case 1:
-                break;
-            case 2:
-                // solve Ej2
-
-                break;
-            case 3:
-//                for (const auto &ej3_problem : ej3_problems) {
-//                    Ej3::HeavyTransportation heavy_transportation(ej3_problem);
-//                    Ej3::Solution ej3_solution;
-//                    ej3_solution = heavy_transportation.solve();
-//
-//                    cout << ej3_solution;
-//                }
-                Ej3::Experimentation experimentation;
-                experimentation.run();
-
-                break;
-            default:
-                cout << "Invalid exercise " << EXERCISE << ", please select 1, 2 or 3." << endl;
-                exit(EXIT_FAILURE);
-        }
-    //}
+void run_experiment() {
+    switch ( EXERCISE ){
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        default:
+            cout << "Invalid exercise " << EXERCISE << ", please select 1, 2 or 3." << endl;
+            exit(EXIT_FAILURE);
+    }
 }
+
+void run() {
+    switch ( EXERCISE ){
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            for (const auto &ej3_problem : ej3_problems) {
+                Ej3::HeavyTransportation heavy_transportation(ej3_problem);
+                Ej3::Solution ej3_solution;
+                ej3_solution = heavy_transportation.solve();
+
+                cout << ej3_solution;
+            }
+            break;
+        default:
+            cout << "Invalid exercise " << EXERCISE << ", please select 1, 2 or 3." << endl;
+            exit(EXIT_FAILURE);
+    }
+}
+
 
 int main(int argc, char *argv[]) {
     validate_argc (argc, argv);
 
+    if(EXPERIMENTATION) {
+        run_experiment();
+        return 0;
+    }
 
     srand (static_cast<unsigned int>(time (nullptr)));
     high_resolution_clock::time_point T_START, T_END;
@@ -206,12 +190,9 @@ int main(int argc, char *argv[]) {
     parse ();
 
     start_clock (T_START);
-    run (GLOBAL_VALUE, INIT_EXPERIMENT, EXPERIMENT);
+    run ();
     stop_clock (T_START, T_END);
 
-
-#ifdef EXPERIMENTATION
     print_experiment_values (EXPERIMENT, GLOBAL_VALUE);
-#endif
     return 0;
 }
