@@ -4,10 +4,10 @@ using namespace Ej3;
 
 HeavyTransportation::HeavyTransportation(EJ3Problem problem) {
 
-    this -> routes = problem.routes;
-    this -> factories = problem.factories;
-    this -> clients = problem.clients;
-    this -> n = clients + factories;
+    //this -> routes = problem.routes;
+    //this -> factories = problem.factories;
+    //this -> clients = problem.clients;
+    //this -> n = clients + factories;
 }
 
 void HeavyTransportation::extend_routes() {
@@ -31,7 +31,7 @@ Solution HeavyTransportation::solve() {
 //    extend_adjacency_matrix();
 //
 //    vector< vector<int> > adyacencia = this->adjacency_matrix;
-    vector<Route> solution_routes;
+    vector<Edge> solution_routes;
 //    vector<int> pertenece(n); // indica a que árbol pertenece el nodo
 //
 //    for(int i = 0; i < n; i++){

@@ -7,7 +7,7 @@
 namespace Ej3 {
     class HeavyTransportation {
     private:
-        vector<Route> routes;
+        vector<Edge> routes;
         void extend_routes();
         unsigned n, clients, factories;
     public:

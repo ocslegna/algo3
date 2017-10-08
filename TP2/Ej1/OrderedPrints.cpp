@@ -31,7 +31,7 @@ Solution OrderedPrints::solve() {
     extend_adjacency_matrix();
 
     vector< vector<int> > adyacencia = this->adjacency_matrix;
-    vector<Route> solution_routes;
+    vector<Edge> solution_routes;
     vector<int> pertenece(n); // indica a que árbol pertenece el nodo
 
     for(int i = 0; i < n; i++){
@@ -57,7 +57,7 @@ Solution OrderedPrints::solve() {
 
 
             if (min != 0) {
-                Route r{};
+                Edge r{};
                 r.origin = nodoA + 1;
                 r.target = nodoB + 1;
                 r.weight = min;

@@ -8,8 +8,8 @@ namespace Ej1 {
     class Solution {
     public:
         int total_cost;
-        vector <Route> routes;
-        Solution(vector<Route> routes);
+        vector <Edge> routes;
+        Solution(vector<Edge> routes);
         Solution();
         friend ostream& operator<<(ostream& os, const Solution& dt);
     };

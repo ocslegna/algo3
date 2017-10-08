@@ -34,25 +34,32 @@ void print_experiment_values (Experiment &experiment, unsigned int &global_value
 
 
 /* Solve */
-void run(unsigned int &global_count, Experiment &init_experiment, Experiment &experiment);
+void run();
 
 typedef vector <vector <int> > AdjacencyMatrix;
 typedef vector <vector <unsigned> > costMatrix;
 
 typedef struct {
-    int origin;
-    int target;
-    int weight;
-} Route;
-typedef struct {
-    vector<Route> routes;
-    int factories;
-    int clients;
-} EJ3Problem;
+    unsigned int origin;
+    unsigned int target;
+    unsigned int weight;
+} Edge;
 
 typedef struct {
     costMatrix cost_matrix;
     unsigned works;
 } EJ1Problem;
+
+typedef struct {
+    AdjacencyMatrix adj_matrix;
+    unsigned servidores;
+    unsigned enlaces;
+} EJ2Problem;
+
+typedef struct {
+    vector<Edge> Edges;
+    int factories;
+    int clients;
+} EJ3Problem;
 
 #endif //ALGO3_DEFINES_H
