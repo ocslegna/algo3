@@ -1,5 +1,5 @@
-#ifndef ALGO3_PARSER_H
-#define ALGO3_PARSER_H
+#ifndef EJ3_PARSER_H
+#define EJ3_PARSER_H
 
 #include <iostream>
 #include <vector>
@@ -16,4 +16,4 @@ namespace Ej3 {
 }
 
 
-#endif //ALGO3_PARSER_H
+#endif //EJ3_PARSER_H

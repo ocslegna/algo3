@@ -39,11 +39,19 @@ void run();
 typedef vector <vector <int> > AdjacencyMatrix;
 typedef vector <vector <unsigned> > costMatrix;
 
-typedef struct {
+struct Edge{
     unsigned int origin;
     unsigned int target;
     unsigned int weight;
-} Edge;
+
+    bool operator<(const Edge& a) const{
+        if(weight != a.weight)
+            return weight < a.weight;
+        if(origin != a.origin)
+            return origin < a.origin;
+        return target < a.target;
+    }
+};
 
 typedef struct {
     costMatrix cost_matrix;
@@ -57,7 +65,7 @@ typedef struct {
 } EJ2Problem;
 
 typedef struct {
-    vector<Edge> Edges;
+    vector<Edge> routes;
     int factories;
     int clients;
 } EJ3Problem;

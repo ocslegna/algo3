@@ -16,7 +16,7 @@ EJ3Problem Generator::generate_random_instance(unsigned int factories, unsigned 
 
     // TODO: volver a incorporar al azar algunos de los ejes removidos!
 
-    problem.Edges = tree_routes;
+    problem.routes = tree_routes;
     problem.factories = factories;
     problem.clients = clients;
 

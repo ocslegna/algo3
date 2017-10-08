@@ -1,7 +1,7 @@
 #include "Solution.h"
 
 namespace Ej1 {
-    Solution::Solution(vector<Route> routes) {
+    Solution::Solution(vector<Edge> routes) {
         this -> routes = routes;
         this -> total_cost = 0;
 

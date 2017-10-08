@@ -29,16 +29,16 @@ EJ3Problem Parser::parse_instance(unsigned factories, std::istream &stream) {
 
         stream >> origin >> target >> weight;
 
-        Edge route{};
-        route.origin = origin;
-        route.target = target;
+        Edge route;
+        route.origin = origin - 1;
+        route.target = target - 1;
         route.weight = weight;
 
         routes.push_back(route);
     }
 
     EJ3Problem problem;
-    problem.Edges = routes;
+    problem.routes = routes;
     problem.clients = clients;
     problem.factories = factories;
     return problem;

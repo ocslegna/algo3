@@ -3,80 +3,72 @@
 using namespace Ej3;
 
 HeavyTransportation::HeavyTransportation(EJ3Problem problem) {
+    this -> routes = problem.routes;
+    this -> factories = problem.factories;
+    this -> clients = problem.clients;
+    this -> n = clients + factories;
+}
 
-    //this -> routes = problem.routes;
-    //this -> factories = problem.factories;
-    //this -> clients = problem.clients;
-    //this -> n = clients + factories;
+void HeavyTransportation::init() {
+    this -> altura.reserve(this -> n);
+    this -> padre.reserve(this -> n);
+    for(int i = 0; i < this -> n; i++){
+        this -> padre[i] = i;
+        this -> altura[i] = 1;
+    }
+}
+
+int HeavyTransportation::find(int x) {
+    if(this -> padre[x] != x){
+        this -> padre[x] = find(this -> padre[x]);
+    }
+    return this -> padre[x];
+}
+
+void HeavyTransportation::uni(int x, int y) {
+    // union es una palabra reservada en C++, por eso usamos "uni"
+    x = find(x);
+    y = find(y);
+    if(this -> altura[x] < this -> altura[y]){
+        this -> padre[x] = y;
+    } else {
+        this -> padre[y] = x;
+        if(this -> altura[x] == this -> altura[y]){
+            this -> altura[y]++;
+        }
+    }
 }
 
 void HeavyTransportation::extend_routes() {
-//    vector<int> new_row(n, -1);
-//
-//    for (int i = 0; i < n; i++) {
-//        if (i < factories) {
-//            this -> adjacency_matrix[i].push_back(
-//                0); // Esto es conectar la fábrica con un eje de peso 0 a un nuevo vértice
-//            new_row[i] = 0;
-//        } else {
-//            this -> adjacency_matrix[i].push_back(-1);
-//        }
-//    }
-//
-//    this -> adjacency_matrix.push_back(new_row);
-//    this -> n ++;
+    int new_vertex = clients + factories;
+    for (int i = 0; i < this -> factories; i++) {
+        Edge r{};
+        r.origin = new_vertex;
+        r.target = clients + i;
+        r.weight = 0;
+        this -> routes.push_back(r);
+    }
+    this -> n ++;
 }
 
 Solution HeavyTransportation::solve() {
-//    extend_adjacency_matrix();
-//
-//    vector< vector<int> > adyacencia = this->adjacency_matrix;
-    vector<Edge> solution_routes;
-//    vector<int> pertenece(n); // indica a que árbol pertenece el nodo
-//
-//    for(int i = 0; i < n; i++){
-//        pertenece[i] = i;
-//    }
-//
-//    int nodoA = 0;
-//    int nodoB = 0;
-//    int arcos = 1;
-//    while(arcos < n){
-//        // Encontrar  el arco mínimo que no forma ciclo y guardar los nodos y la distancia.
-//        int min = -1;
-//        for(int i = 0; i < n; i++)
-//            for(int j = 0; j < n; j++)
-//                if((min > adyacencia[i][j] || min == -1) && adyacencia[i][j]!=-1 && pertenece[i] != pertenece[j]){
-//                    min = adyacencia[i][j];
-//                    nodoA = i;
-//                    nodoB = j;
-//                }
-//
-//        // Si los nodos no pertenecen al mismo árbol agrego el arco al árbol mínimo.
-//        if(pertenece[nodoA] != pertenece[nodoB]){
-//
-//
-//            if (min != 0) {
-//                Route r{};
-//                r.origin = nodoA + 1;
-//                r.target = nodoB + 1;
-//                r.weight = min;
-//                solution_routes.push_back(r);
-//            }
-//
-//            // Todos los nodos del árbol del nodoB ahora pertenecen al árbol del nodoA.
-//            int temp = pertenece[nodoB];
-//            pertenece[nodoB] = pertenece[nodoA];
-//            for(int k = 0; k < n; k++)
-//                if(pertenece[k] == temp)
-//                    pertenece[k] = pertenece[nodoA];
-//
-//            arcos++;
-//        }
-//    }
 
+    extend_routes();
 
-    return Solution(solution_routes);
+    init();
+    vector<Edge> res;
+
+    sort(this -> routes.begin(), this -> routes.end()); // ordenamos las aristas por peso de menor a mayor
+
+    for(int i = 0; i < this -> routes.size(); i++){
+        Edge a = this -> routes[i];
+        if(find(a.origin) != find(a.target)){
+            uni(a.origin, a.target);
+            res.push_back(a);
+        }
+    }
+
+    return Solution(res);
 }
 
 

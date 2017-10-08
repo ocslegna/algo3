@@ -9,7 +9,11 @@ namespace Ej3 {
     private:
         vector<Edge> routes;
         void extend_routes();
+        int find(int x);
+        void uni(int x, int y);
         unsigned n, clients, factories;
+        vector<int> altura, padre;
+        void init();
     public:
         explicit HeavyTransportation(EJ3Problem problem);
         Solution solve();
