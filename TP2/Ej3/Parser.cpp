@@ -19,23 +19,26 @@ vector<EJ3Problem> Parser::parse(std::istream &stream) {
 
 
 EJ3Problem Parser::parse_instance(unsigned factories, std::istream &stream) {
-    unsigned int clients, routes;
-    stream >> clients >> routes;
+    unsigned int clients, routesAmount;
+    stream >> clients >> routesAmount;
 
-    AdjacencyMatrix adjM(factories + clients, vector<int>(factories + clients, -1));
+    vector<Route> routes;
 
-
-    for (int i = 0; i < routes; i++) {
+    for (int i = 0; i < routesAmount; i++) {
         int origin, target, weight;
 
         stream >> origin >> target >> weight;
 
-        adjM[origin - 1][target - 1] = weight;
-        adjM[target - 1][origin - 1] = weight;
+        Route route;
+        route.origin = origin;
+        route.target = target;
+        route.weight = weight;
+
+        routes.push_back(route);
     }
 
     EJ3Problem problem;
-    problem.adjacency_matrix = adjM;
+    problem.routes = routes;
     problem.clients = clients;
     problem.factories = factories;
     return problem;

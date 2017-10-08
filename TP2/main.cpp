@@ -12,6 +12,9 @@
 #include "Ej3/Parser.h"
 #include "Ej3/Solution.h"
 #include "defines.h"
+#include "Ej3/Experimentation.h"
+#include <time.h>
+
 
 #define EXPERIMENTATION
 
@@ -76,6 +79,9 @@ void stop_clock (high_resolution_clock::time_point &T_START, high_resolution_clo
 /* Validation */
 void validate_argc (const int &argc, char *argv[]) {
     // Ejercicios a correr y otros argumentos.
+
+    // ./tp1 e 1
+
     if (argc != 3) {
         if(argc != 1) {
             cout << "You need to supply two arguments EXERCISE and ITERATIONS to this program." << endl;
@@ -95,6 +101,27 @@ void validate_argc (const int &argc, char *argv[]) {
 
 }
 
+void experiment() {
+    // Parsear aca o en parser.cpp ej1 o ej2 o ej3.
+    // TODO: Hacer parsers separados e invocar acá. (agregar list/vector de argumentos -corresponden a ejercicio-).
+
+    switch ( EXERCISE ){
+        case 1:
+            // Parse Ej1
+            break;
+        case 2:
+            // Parse Ej2
+            break;
+        case 3:
+            Ej3::Experimentation experimentation;
+            experimentation.run();
+            break;
+        default:
+            cout << "Invalid exercise " << EXERCISE << ", please select 1, 2 or 3." << endl;
+            exit(EXIT_FAILURE);
+    }
+}
+
 void parse() {
     // Parsear aca o en parser.cpp ej1 o ej2 o ej3.
     // TODO: Hacer parsers separados e invocar acá. (agregar list/vector de argumentos -corresponden a ejercicio-).
@@ -108,8 +135,8 @@ void parse() {
             // Parse Ej2
             break;
         case 3:
-            Ej3::Parser ej3_parser;
-            ej3_problems = ej3_parser.parse(std::cin);
+//            Ej3::Parser ej3_parser;
+//            ej3_problems = ej3_parser.parse(std::cin);
             break;
         default:
             cout << "Invalid exercise " << EXERCISE << ", please select 1, 2 or 3." << endl;
@@ -149,13 +176,16 @@ void run(unsigned int &global_count, Experiment &init_experiment, Experiment &ex
 
                 break;
             case 3:
-                for (const auto &ej3_problem : ej3_problems) {
-                    Ej3::HeavyTransportation heavy_transportation(ej3_problem);
-                    Ej3::Solution ej3_solution;
-                    ej3_solution = heavy_transportation.solve();
+//                for (const auto &ej3_problem : ej3_problems) {
+//                    Ej3::HeavyTransportation heavy_transportation(ej3_problem);
+//                    Ej3::Solution ej3_solution;
+//                    ej3_solution = heavy_transportation.solve();
+//
+//                    cout << ej3_solution;
+//                }
+                Ej3::Experimentation experimentation;
+                experimentation.run();
 
-                    cout << ej3_solution;
-                }
                 break;
             default:
                 cout << "Invalid exercise " << EXERCISE << ", please select 1, 2 or 3." << endl;
@@ -164,9 +194,9 @@ void run(unsigned int &global_count, Experiment &init_experiment, Experiment &ex
     //}
 }
 
-
 int main(int argc, char *argv[]) {
     validate_argc (argc, argv);
+
 
     srand (static_cast<unsigned int>(time (nullptr)));
     high_resolution_clock::time_point T_START, T_END;
@@ -178,6 +208,7 @@ int main(int argc, char *argv[]) {
     start_clock (T_START);
     run (GLOBAL_VALUE, INIT_EXPERIMENT, EXPERIMENT);
     stop_clock (T_START, T_END);
+
 
 #ifdef EXPERIMENTATION
     print_experiment_values (EXPERIMENT, GLOBAL_VALUE);

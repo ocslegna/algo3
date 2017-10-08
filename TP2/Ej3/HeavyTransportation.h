@@ -7,8 +7,8 @@
 namespace Ej3 {
     class HeavyTransportation {
     private:
-        AdjacencyMatrix adjacency_matrix;
-        void extend_adjacency_matrix();
+        vector<Route> routes;
+        void extend_routes();
         unsigned n, clients, factories;
     public:
         explicit HeavyTransportation(EJ3Problem problem);

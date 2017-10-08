@@ -7,6 +7,7 @@
 #include <vector>
 #include <functional>
 #include <set>
+#include <stdlib.h>
 
 using namespace std;
 using namespace std::chrono;
@@ -44,7 +45,7 @@ typedef struct {
     int weight;
 } Route;
 typedef struct {
-    AdjacencyMatrix adjacency_matrix;
+    vector<Route> routes;
     int factories;
     int clients;
 } EJ3Problem;
