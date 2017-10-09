@@ -7,7 +7,7 @@
 #include "Ej2.h"
 #include "tiempo.h"
 
-//#define EXP
+#define EXP
 using namespace std;
 
 
@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
 		int master = CalcularRaiz(camino);
 		
 		// Imprimo solución.
-		ImprimirSolucion(costoTotal, master, aristas);
+		//ImprimirSolucion(costoTotal, master, aristas);
 
 	
 		#ifdef EXP
