@@ -4,7 +4,7 @@
 
 using namespace Ej3;
 
-EJ3Problem Generator::generate_random_instance(unsigned int factories, unsigned int clients, unsigned int routes, unsigned int max_weight) {
+EJ3Problem Generator::generate_random_instance(unsigned int factories, unsigned int clients, unsigned int max_weight) {
     EJ3Problem problem;
 
     int n = factories + clients;
@@ -23,11 +23,23 @@ EJ3Problem Generator::generate_random_instance(unsigned int factories, unsigned 
     return problem;
 }
 
+EJ3Problem Generator::generate_complete_instance(unsigned int factories, unsigned int clients, unsigned int max_weight) {
+    EJ3Problem problem;
+
+    vector<Edge> complete_routes = routes_for_complete_graph(factories + clients, max_weight);
+
+    problem.routes = complete_routes;
+    problem.factories = factories;
+    problem.clients = clients;
+
+    return problem;
+}
+
 vector<Edge> Generator::routes_for_complete_graph(unsigned int k, unsigned int max_weight) {
     vector<Edge> routes;
 
     for (int i = 0; i < k; i++) {
-        for (int j = i + 1; i < k; i++) {
+        for (int j = i + 1; j < k; j++) {
             Edge route;
             route.origin = i;
             route.target = j;
@@ -47,14 +59,12 @@ vector<Edge> Generator::create_tree_routes(vector<Edge> complete_edges, unsigned
         pertenece[i] = i;
     }
 
-    int arcos = 1;
-
     auto rng = std::default_random_engine {};
     std::shuffle(std::begin(complete_edges), std::end(complete_edges), rng);
 
-    while(arcos < n){
-        Edge r = complete_edges.back();
-        complete_edges.pop_back();
+    for (int i = 0; i < complete_edges.size(); i++){
+
+        Edge r = complete_edges[i];
 
         if(pertenece[r.origin] != pertenece[r.target]){
 
@@ -67,7 +77,8 @@ vector<Edge> Generator::create_tree_routes(vector<Edge> complete_edges, unsigned
                 if(pertenece[k] == temp)
                     pertenece[k] = pertenece[r.origin];
 
-            arcos++;
         }
     }
+
+    return solution_routes;
 }
