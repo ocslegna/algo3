@@ -4,7 +4,7 @@
 
 using namespace Ej3;
 
-EJ3Problem Generator::generate_random_instance(unsigned int factories, unsigned int clients, unsigned int max_weight) {
+EJ3Problem Generator::generate_random_instance(unsigned int factories, unsigned int clients, unsigned int routes, unsigned int max_weight) {
     EJ3Problem problem;
 
     int n = factories + clients;
@@ -14,7 +14,28 @@ EJ3Problem Generator::generate_random_instance(unsigned int factories, unsigned 
     // Tomo el grafo generado anteriromento y me quedo con un árbol (de esta manera es conexo seguro)
     vector<Edge> tree_routes = create_tree_routes(complete_routes, n);
 
-    // TODO: volver a incorporar al azar algunos de los ejes removidos!
+    // Le vuelvo a agregar tantas rutas como me piden
+    int i = tree_routes.size();
+    while (i < routes) {
+        for (int j = 0; j < complete_routes.size(); j++) {
+            Edge cr = complete_routes[j];
+            bool exists = false;
+
+            for (int k = 0; k < tree_routes.size(); k++) {
+                Edge tr = tree_routes[k];
+                if (tr.origin == cr.origin && tr.target == cr.target) {
+                    exists = true;
+                    break;
+                }
+            }
+
+            if (!exists) {
+                tree_routes.push_back(cr);
+                i++;
+                break;
+            }
+        }
+    }
 
     problem.routes = tree_routes;
     problem.factories = factories;

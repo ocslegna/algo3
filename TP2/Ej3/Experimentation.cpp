@@ -5,7 +5,7 @@
 
 using namespace Ej3;
 
-// Genero grafos completos, clientes y fabricas crecen a la par
+// Dejo fija la cantidad de clientes y fabricas y crezo la cantidad de ejes
 void Experimentation::first_experiment() {
     std::ofstream csv;
     csv.open ("../Experimentacion/Resultados/EJ3/first_experiment.csv");
@@ -13,17 +13,52 @@ void Experimentation::first_experiment() {
 
     Generator generator;
 
-    for (int n = 5; n < 100; n++) {
+    unsigned int clients = 51, factories = 49;
+    unsigned int min_amount_of_edges = 100;
+    unsigned int max_amount_of_edges = 4950;
+
+    for (int n = min_amount_of_edges; n < max_amount_of_edges; n++) {
 
         std::cout << n << endl;
-        int reps = 100;
+        int reps = 50;
         while(reps > 0) {
             reps--;
-            EJ3Problem problem = generator.generate_complete_instance(n, n-1, 1000);
+            // Creo instancia random con cantidad de clientes y fabricas constante y cada vez mas ejes.
+            EJ3Problem problem = generator.generate_random_instance(clients, factories, n, n);
 
             HeavyTransportation ht(problem);
 
-            csv << n << "," << n-1 << "," << problem.routes.size() << "," << measureHT(ht) << "\n";
+            csv << clients << "," << factories << "," << problem.routes.size() << "," << measureHT(ht) << "\n";
+        }
+    }
+
+    csv.close();
+}
+
+// Dejo fija la cantidad de clientes y fabricas y crezo la cantidad de ejes
+void Experimentation::second_experiment() {
+    std::ofstream csv;
+    csv.open ("../Experimentacion/Resultados/EJ3/first_experiment.csv");
+    csv << "clients,factories,routes,nanoseconds\n";
+
+    Generator generator;
+
+    unsigned int clients = 51, factories = 49;
+    unsigned int min_amount_of_edges = 100;
+    unsigned int max_amount_of_edges = 4950;
+
+    for (int n = min_amount_of_edges; n < max_amount_of_edges; n++) {
+
+        std::cout << n << endl;
+        int reps = 50;
+        while(reps > 0) {
+            reps--;
+            // Creo instancia random con cantidad de clientes y fabricas constante y cada vez mas ejes.
+            EJ3Problem problem = generator.generate_random_instance(clients, factories, n, n);
+
+            HeavyTransportation ht(problem);
+
+            csv << clients << "," << factories << "," << problem.routes.size() << "," << measureHT(ht) << "\n";
         }
     }
 

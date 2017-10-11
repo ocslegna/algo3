@@ -10,7 +10,7 @@
 namespace Ej3 {
     class Generator {
     public:
-        EJ3Problem generate_random_instance(unsigned int factories, unsigned int clients, unsigned int max_weight);
+        EJ3Problem generate_random_instance(unsigned int factories, unsigned int clients, unsigned int routes, unsigned int max_weight);
         EJ3Problem generate_complete_instance(unsigned int factories, unsigned int clients, unsigned int max_weight);
         vector<Edge> routes_for_complete_graph(unsigned int k, unsigned int max_weight);
         vector<Edge> create_tree_routes(vector<Edge> complete_edges, unsigned int n);
