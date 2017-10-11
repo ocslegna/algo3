@@ -1,4 +1,0 @@
-#ifndef ALGO3_SOLUTION_H
-#define ALGO3_SOLUTION_H
-
-#endif //ALGO3_SOLUTION_H
