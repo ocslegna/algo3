@@ -49,7 +49,7 @@ void Experimentation::second_experiment() {
         int reps = 100 ;
         while(reps > 0) {
             reps--;
-            // Creo instancia random con cantidad de clientes y fabricas constante y cada vez mas ejes.
+
             EJ3Problem problem = generator.generate_complete_instance(n, n - 1, 10000000);
             HeavyTransportation ht(problem);
             double random = measureHT(ht);
