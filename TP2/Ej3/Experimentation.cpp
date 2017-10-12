@@ -39,41 +39,36 @@ void Experimentation::first_experiment() {
 void Experimentation::second_experiment() {
     std::ofstream csv;
     csv.open ("../Experimentacion/Resultados/EJ3/second_experiment.csv");
-    csv << "vertices,routes,nanoseconds_sorted,nanoseconds_random,nanoseconds_inverted\n";
+    csv << "vertices,nanoseconds_sorted,nanoseconds_random,nanoseconds_inverted\n";
 
     Generator generator;
 
-    for (int n = 3; n < 100; n++) {
+    for (int n = 3; n < 200; n++) {
 
         std::cout << n << endl;
-        int reps = 50;
+        int reps = 100 ;
         while(reps > 0) {
             reps--;
             // Creo instancia random con cantidad de clientes y fabricas constante y cada vez mas ejes.
-            EJ3Problem problem = generator.generate_complete_instance(n, n - 1, n);
-
-            //random
+            EJ3Problem problem = generator.generate_complete_instance(n, n - 1, 10000000);
             HeavyTransportation ht(problem);
             double random = measureHT(ht);
 
-            vector<Edge> routes = problem.routes;
-            sort(routes.begin(), routes.end());
-            problem.routes = routes;
-
-            HeavyTransportation ht2(problem);
-            double sorted = measureHT(ht2);
-
-            vector<Edge> inverted_routes(routes.size());
-
-            for (int i = 0; i < routes.size(); i++) {
-                inverted_routes[routes.size() - 1 - i] = routes[i];
+            EJ3Problem problem3 = generator.generate_complete_instance(n, n - 1, 10000000);
+            vector<Edge> inverted_routes(problem3.routes.size());
+            for (int i = 0; i < problem3.routes.size(); i++) {
+                inverted_routes[problem3.routes.size() - 1 - i] = problem3.routes[i];
             }
-
-            problem.routes = inverted_routes;
-            HeavyTransportation ht3(problem);
+            problem3.routes = inverted_routes;
+            HeavyTransportation ht3(problem3);
             double inverted = measureHT(ht3);
 
-            csv << n + n - 1 << "," << problem.routes.size() << "," << sorted << "," << random << "," << inverted << "\n";
+            EJ3Problem problem2 = generator.generate_complete_instance(n, n - 1, 10000000);
+            sort(problem2.routes.begin(), problem2.routes.end());
+            HeavyTransportation ht2(problem2);
+            double sorted = measureHT(ht2);
+
+            csv << n + n - 1 << "," << sorted << "," << random << "," << inverted << "\n";
         }
     }
 
