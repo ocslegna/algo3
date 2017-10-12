@@ -24,9 +24,9 @@ if __name__ == '__main__':
 
 	# se puede pasarle a la funcion main un paramatro opcional que denota la cantidad maxima de vertices
 	# por default es 500
-	rand.main()
-	comp.main()
-	spar.main()
+	rand.main(15)
+	comp.main(15)
+	spar.main(15)
 
 	
 	p = subprocess.Popen(["make", "clean"], stdout=subprocess.PIPE)

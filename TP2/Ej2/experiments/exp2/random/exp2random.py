@@ -62,6 +62,8 @@ def generate_input_density(n, p):
 	randinput.write("0 \n")
 	randinput.close()
 
+	return [m,p]
+
 def file_is_empty(path):
     return os.stat(path).st_size==0
 
@@ -86,18 +88,21 @@ def main(default = 501, **kwargs):
 	file.write(delimiter.join(['modo','vertices','aristas','duracion','densidad']) + '\n')
 	for n in range(10, max_n):
 		complete = n*(n-1)/2
-		for m in xrange(0,21):
+		for k in xrange(0,21):
 			p = random.uniform(0.05, 1)
-			generate_input_density(n, p)
+			datos = generate_input_density(n, p)
+			m = datos[0]
+			p = datos[1]
+			d = 2*m/float(n*(n-1))
 			percent = n/(float(max_n)-1)*100
-			print "	" + str(int(percent)) + "% Running with " + str(n) + " nodes and density " + str(p)
+			print "	" + str(int(percent)) + "% Running with " + str(n) + " nodes and density " + str(d)
 			for i in range(0,11):
 				times = own_method()
 				ts = times.split('\n')
 				t1 = ts[0]
 				t2 = ts[1]
-				file.write(delimiter.join(["arreglo", str(n), str(m), str(t1), str(p)]) + '\n')
-				file.write(delimiter.join(["cola", str(n), str(m), str(t2), str(p)]) + '\n')
+				file.write(delimiter.join(["arreglo", str(n), str(m), str(t1), str(d)]) + '\n')
+				file.write(delimiter.join(["cola", str(n), str(m), str(t2), str(d)]) + '\n')
 	
 
 	os.remove('output_basico')

@@ -91,12 +91,13 @@ def main(default = 501, **kwargs):
 		p = random.uniform(0.05, 0.10)
 		m = generate_input_density(n, p)
 		percent = n/(float(max_n)-1)*100
-		print "	" + str(int(percent)) + "% Running with " + str(n) + " nodes and density " + str(p)
+		d = 2*m/float(n*(n-1))
+		print "	" + str(int(percent)) + "% Running with " + str(n) + " nodes and density " + str(d)
 		for i in range(0,11):
 			t1 = own_method()
 			if str(t1) == "":
 				print "ERROR"
-			file.write(delimiter.join(["basico", str(n), str(m), str(t1), str(p)]) + '\n')
+			file.write(delimiter.join(["basico", str(n), str(m), str(t1), str(d)]) + '\n')
 	
 
 	os.remove('output_basico')
