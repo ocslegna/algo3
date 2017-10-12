@@ -5,10 +5,6 @@
 #include <functional>
 #include <set>
 
-#include "Ej1/Parser.h"
-#include "Ej1/Solution.h"
-#include "Ej2/Ej2.h"
-#include "Ej2/Parser.h"
 #include "Ej3/HeavyTransportation.h"
 #include "Ej3/Parser.h"
 #include "Ej3/Solution.h"
@@ -24,8 +20,6 @@ unsigned int ITERATIONS = 1, EXERCISE = 0;
 long T_DURATION;
 string FIRST;
 
-vector<EJ1Problem> ej1_problems;
-vector<EJ2Problem> ej2_problems;
 vector<EJ3Problem> ej3_problems;
 
 /* Timing */
@@ -68,12 +62,12 @@ void validate_argc (const int &argc, char *argv[]) {
 void parse() {
     switch ( EXERCISE ){
         case 1:
-            Ej1::Parser ej1_parser;
-            ej1_problems = ej1_parser.parse(std::cin);
+//            Ej1::Parser ej1_parser;
+//            ej1_problems = ej1_parser.parse(std::cin);
             break;
         case 2:
-            Ej2::Parser ej2_parser;
-            ej2_problems = ej2_parser.parse (std::cin);
+//            Ej2::Parser ej2_parser;
+//            ej2_problems = ej2_parser.parse (std::cin);
             break;
         case 3:
             Ej3::Parser ej3_parser;
