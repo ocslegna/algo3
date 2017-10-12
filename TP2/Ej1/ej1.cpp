@@ -138,7 +138,7 @@ unsigned int dp_memo_recur(ProblemInstance& pi, vector< vector<unsigned int> >& 
 SolutionInstance dp_memo(ProblemInstance& pi) {
     SolutionInstance sol;
     vector< vector<unsigned int> > dict = pi.cost_matrix;
-    init_matrix(dict, 0);
+    init_matrix(dict, 0); // los costos son todos positivos, podemos usar 0 como no inicializado
 
     sol.cost = dp_memo_recur(pi, dict, 1, 0);
     build_solution(pi.cost_matrix, dict, pi.n_works, sol.M1, sol.M2);
