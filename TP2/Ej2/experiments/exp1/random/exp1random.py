@@ -62,6 +62,8 @@ def generate_input_density(n, p):
 	randinput.write("0 \n")
 	randinput.close()
 
+	return m
+
 def file_is_empty(path):
     return os.stat(path).st_size==0
 
@@ -85,14 +87,15 @@ def main(default = 501, **kwargs):
 	file.write(delimiter.join(['modo','vertices','aristas','duracion','densidad']) + '\n')
 	for n in range(10, max_n):
 		complete = n*(n-1)/2
-		for m in xrange(0,21):
+		for k in xrange(0,21):
 			p = random.uniform(0.05, 1)
-			generate_input_density(n, p)
+			m = generate_input_density(n, p)
 			percent = n/(float(max_n)-1)*100
-			print "	" + str(int(percent)) + "% Running with " + str(n) + " nodes and density " + str(p)
+			d = 2*m/float(n*(n-1))
+			print "	" + str(int(percent)) + "% Running with " + str(n) + " nodes and density " + str(d)
 			for i in range(0,11):
 				t1 = own_method()
-				file.write(delimiter.join(["basico", str(n), str(m), str(t1), str(p)]) + '\n')
+				file.write(delimiter.join(["basico", str(n), str(m), str(t1), str(d)]) + '\n')
 	
 
 	os.remove('output_basico')

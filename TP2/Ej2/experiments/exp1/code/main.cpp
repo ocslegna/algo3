@@ -7,7 +7,7 @@
 #include "Ej2.h"
 #include "tiempo.h"
 
-#define EXP
+#define EXP1
 using namespace std;
 
 
@@ -46,9 +46,11 @@ int main(int argc, char **argv) {
 		
 		// Imprimo solución.
 		//ImprimirSolucion(costoTotal, master, aristas);
-
+		#ifdef EXP1
+			cout << time_span;
+		#endif
 	
-		#ifdef EXP
+		#ifdef EXP2
 			cout << time_span << endl;
 			vector< list<ElemDist> > L = Matriz_A_Lista(M);
 			start_time(start_cp);

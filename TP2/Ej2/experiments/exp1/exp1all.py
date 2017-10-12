@@ -28,7 +28,13 @@ if __name__ == '__main__':
 	rand.main()
 	spar.main()
 
-	
+	# Por ej:
+	#comp.main(51)
+	#rand.main(51)
+	#spar.main(51)
+
+		
+
 	p = subprocess.Popen(["make", "clean"], stdout=subprocess.PIPE)
 	p = subprocess.Popen(["make", "clean"], stdout=subprocess.PIPE, cwd="./code")
 
