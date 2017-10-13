@@ -1,0 +1,7 @@
+Para correr los experimentos basta correr el script .py correspondiente en cada carpeta.
+	
+	python expX.py
+
+Es necesario tener instalar la librería de python networkx, la cual fue utilizada para generar los distintos tipos de grafos aleatoriamente.
+
+	sudo pip install networkx

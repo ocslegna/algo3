@@ -91,16 +91,13 @@ def main(default = 500, **kwargs):
 	file = open('exp2nfijo.csv', 'w')
 	file.write(delimiter.join(['modo','vertices','aristas','duracion','densidad']) + '\n')
 	
-	#min_den = 800
-	#n = 200
 	complete = n*(n-1)/2
 	min_den = 6000
 	for m in range(min_den, complete+1, 1000):
 		m = generate_input(n,m)
 		d = 2*m/float(n*(n-1))
 		percent = m/(float(complete))*100
-		print(m)
-		#print "	" + str(int(percent)) + "% Running with " + str(n) + " nodes and density " + str(d)
+		print "	" + str(int(percent)) + "% Running with " + str(n) + " nodes and density " + str(d)
 		for i in range(0,11):
 			times = own_method()
 			if str(times) == "":
