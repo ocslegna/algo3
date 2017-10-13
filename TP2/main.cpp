@@ -35,27 +35,31 @@ void stop_clock (high_resolution_clock::time_point &T_START, high_resolution_clo
 
 /* Validation */
 void validate_argc (const int &argc, char *argv[]) {
-    if (argc != 3) {
-        if(argc != 1) {
-            cout << "You need to supply two arguments EXERCISE and ITERATIONS to this program." << endl;
-            exit (EXIT_FAILURE);
-        }
-    } else {
-        /* Los argumentos deberán ser -> Experimentacion: "E NumeroEjercicio" ó "NumeroEjercicio CantidadIteraciones" */
-        FIRST = argv[1];
-        if(FIRST == "e" || FIRST == "E"){
-            EXPERIMENTATION = true;
-            EXERCISE = static_cast<unsigned int>(strtol(argv[2], nullptr, 10));
-        } else {
-            EXERCISE = static_cast<unsigned int>(strtol(argv[1], nullptr, 10));
-            ITERATIONS = static_cast<unsigned int>(strtol(argv[2], nullptr, 10));
-        }
 
-        if (EXERCISE >= 4 || EXERCISE <= 0) {
-            cout << "Invalid exercise " << EXERCISE << ", please select 1, 2 or 3." << endl;
-            exit (EXIT_FAILURE);
-        }
-    }
+    EXERCISE = 3;
+    ITERATIONS = 1;
+
+//    if (argc != 3) {
+//        if(argc != 1) {
+//            cout << "You need to supply two arguments EXERCISE and ITERATIONS to this program." << endl;
+//            exit (EXIT_FAILURE);
+//        }
+//    } else {
+//        /* Los argumentos deberán ser -> Experimentacion: "E NumeroEjercicio" ó "NumeroEjercicio CantidadIteraciones" */
+//        FIRST = argv[1];
+//        if(FIRST == "e" || FIRST == "E"){
+//            EXPERIMENTATION = true;
+//            EXERCISE = static_cast<unsigned int>(strtol(argv[2], nullptr, 10));
+//        } else {
+//            EXERCISE = static_cast<unsigned int>(strtol(argv[1], nullptr, 10));
+//            ITERATIONS = static_cast<unsigned int>(strtol(argv[2], nullptr, 10));
+//        }
+//
+//        if (EXERCISE >= 4 || EXERCISE <= 0) {
+//            cout << "Invalid exercise " << EXERCISE << ", please select 1, 2 or 3." << endl;
+//            exit (EXIT_FAILURE);
+//        }
+//    }
 
 }
 
