@@ -10,6 +10,7 @@ namespace Ej3 {
         double measureHT(HeavyTransportation ht);
         void first_experiment();
         void second_experiment();
+        void third_experiment();
     };
 }
 

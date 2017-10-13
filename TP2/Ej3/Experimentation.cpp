@@ -1,6 +1,5 @@
 #include "Experimentation.h"
 #include "Generator.h"
-#include "../defines.h"
 #include <fstream>
 
 using namespace Ej3;
@@ -8,7 +7,7 @@ using namespace Ej3;
 // Dejo fija la cantidad de clientes y fabricas y crezo la cantidad de ejes
 void Experimentation::first_experiment() {
     std::ofstream csv;
-    csv.open ("../Experimentacion/Resultados/EJ3/first_experiment.csv");
+    csv.open ("./Resultados/EJ3/first_experiment.csv");
     csv << "clients,factories,routes,nanoseconds\n";
 
     Generator generator;
@@ -38,7 +37,7 @@ void Experimentation::first_experiment() {
 // Genero grafos K cada vez mas grandes, y comparo los tiempos dandole al algoritmo los ejes ya ordenados/random/orden invertido
 void Experimentation::second_experiment() {
     std::ofstream csv;
-    csv.open ("../Experimentacion/Resultados/EJ3/second_experiment.csv");
+    csv.open ("./Resultados/EJ3/second_experiment.csv");
     csv << "vertices,nanoseconds_sorted,nanoseconds_random,nanoseconds_inverted\n";
 
     Generator generator;
@@ -54,6 +53,11 @@ void Experimentation::second_experiment() {
             HeavyTransportation ht(problem);
             double random = measureHT(ht);
 
+            EJ3Problem problem2 = generator.generate_complete_instance(n, n - 1, 10000000);
+            sort(problem2.routes.begin(), problem2.routes.end());
+            HeavyTransportation ht2(problem2);
+            double sorted = measureHT(ht2);
+
             EJ3Problem problem3 = generator.generate_complete_instance(n, n - 1, 10000000);
             vector<Edge> inverted_routes(problem3.routes.size());
             for (int i = 0; i < problem3.routes.size(); i++) {
@@ -63,12 +67,34 @@ void Experimentation::second_experiment() {
             HeavyTransportation ht3(problem3);
             double inverted = measureHT(ht3);
 
-            EJ3Problem problem2 = generator.generate_complete_instance(n, n - 1, 10000000);
-            sort(problem2.routes.begin(), problem2.routes.end());
-            HeavyTransportation ht2(problem2);
-            double sorted = measureHT(ht2);
-
             csv << n + n - 1 << "," << sorted << "," << random << "," << inverted << "\n";
+        }
+    }
+
+    csv.close();
+}
+
+
+// Genero grafos K cada vez mas grandes, y comparo los tiempos dandole al algoritmo los ejes ya ordenados/random/orden invertido
+void Experimentation::third_experiment() {
+    std::ofstream csv;
+    csv.open ("./Resultados/EJ3/third_experiment.csv");
+    csv << "factories,nanoseconds\n";
+
+    Generator generator;
+
+
+    for (int factories = 100; factories < 450; factories++) {
+
+        std::cout << factories << endl;
+        int reps = 50;
+        while(reps > 0) {
+            reps--;
+
+            EJ3Problem problem = generator.generate_complete_instance(factories, 1000 - factories, 10000000);
+            HeavyTransportation ht(problem);
+
+            csv << factories << "," << measureHT(ht) << "\n";
         }
     }
 
@@ -88,6 +114,7 @@ double Experimentation::measureHT(HeavyTransportation ht) {
 void Experimentation::run() {
     Experimentation experimentation;
 //    experimentation.first_experiment();
-    experimentation.second_experiment();
+//    experimentation.second_experiment();
+    experimentation.third_experiment();
 }
 
