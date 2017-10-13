@@ -5,11 +5,11 @@
 #include <functional>
 #include <set>
 
-#include "Ej3/HeavyTransportation.h"
-#include "Ej3/Parser.h"
-#include "Ej3/Solution.h"
+#include "source/HeavyTransportation.h"
+#include "source/Parser.h"
+#include "source/Solution.h"
 #include "defines.h"
-#include "Ej3/Experimentation.h"
+#include "source/Experimentation.h"
 
 bool EXPERIMENTATION = false;
 
